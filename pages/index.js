@@ -1,60 +1,61 @@
-import Head from "next/head"
-import { Image, Input, Textarea, Flex, Box, Spinner } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import dayjs from "dayjs"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-import { CloseIcon } from "@chakra-ui/icons"
-import { AO } from "aonote"
-const pid = process.env.NEXT_PUBLIC_PID
-import { concat } from "ramda"
-import { isArweave, Link } from "@/arnext"
+import Head from "next/head";
+import { Image, Input, Textarea, Flex, Box, Spinner } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { CloseIcon } from "@chakra-ui/icons";
+import { AO } from "aonote";
+const pid =
+  process.env.NEXT_PUBLIC_PID || "8ILQE2ZWywJXQBJLwJw5KJgj_c6cFL7UPeJb7Lnfcw0";
+import { concat } from "ramda";
+import { isArweave, Link } from "@/arnext";
 
 async function _getStaticProps({}) {
-  const ao = new AO()
+  const ao = new AO();
   const { out: _posts } = await ao.dry({
     pid,
     act: "List",
     tags: { Limit: "10" },
     get: { data: true, json: true },
-  })
-  return { props: { _posts: _posts ?? [] }, revalidate: 100 }
+  });
+  return { props: { _posts: _posts ?? [] }, revalidate: 100 };
 }
 
-export const getStaticProps = isArweave ? null : _getStaticProps
+export const getStaticProps = isArweave ? null : _getStaticProps;
 
 export default function Home({ _posts = [] }) {
-  const [addr, setAddr] = useState(null)
-  const [text, setText] = useState("")
-  const [title, setTitle] = useState("")
-  const [posts, setPosts] = useState(_posts)
-  const [more, setMore] = useState(_posts.length >= 10)
-  const [image, setImage] = useState("")
-  const imageOk = image === "" || /^[A-Za-z0-9_-]{43}$/.test(image)
-  const [post, setPost] = useState(false)
-  const [posting, setPosting] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [init, setInit] = useState(_posts.length !== 0)
+  const [addr, setAddr] = useState(null);
+  const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
+  const [posts, setPosts] = useState(_posts);
+  const [more, setMore] = useState(_posts.length >= 10);
+  const [image, setImage] = useState("");
+  const imageOk = image === "" || /^[A-Za-z0-9_-]{43}$/.test(image);
+  const [post, setPost] = useState(false);
+  const [posting, setPosting] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [init, setInit] = useState(_posts.length !== 0);
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (!init) {
         if (posts.length === 0) {
-          const ao = new AO()
+          const ao = new AO();
           const { out } = await ao.dry({
             pid,
             act: "List",
             tags: { Limit: "10" },
             get: { data: true, json: true },
-          })
-          setPosts(out)
-          setInit(true)
+          });
+          setPosts(out);
+          setInit(true);
           if (out.length <= 10) {
-            setMore(true)
+            setMore(true);
           }
         }
       }
-    })()
-  }, [_posts])
+    })();
+  }, [_posts]);
 
   const ok =
     !posting &&
@@ -63,12 +64,12 @@ export default function Home({ _posts = [] }) {
     !/^\s*$/.test(text) &&
     !/^\s*$/.test(title) &&
     imageOk &&
-    addr
+    addr;
   const meta = {
     title: "ArNext AO Demo",
     description: "NextJS on Vercel & Arweave",
     image: "n-bveg-XihRf3khKbUIEfBLp7yOZrVs6g1D3_vUdMjQ",
-  }
+  };
   return (
     <>
       <Head>
@@ -114,8 +115,8 @@ export default function Home({ _posts = [] }) {
               <Flex fontSize="12px" mb={1} justify="flex-end" mt={2}>
                 <CloseIcon
                   onClick={() => {
-                    setPost(false)
-                    setAddr(null)
+                    setPost(false);
+                    setAddr(null);
                   }}
                   sx={{ cursor: "pointer", ":hover": { opacity: 0.75 } }}
                 />
@@ -127,7 +128,7 @@ export default function Home({ _posts = [] }) {
                 <Input
                   placeholder="title..."
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </Flex>
               <Flex fontSize="12px" mb={1} mt={4}>
@@ -138,7 +139,7 @@ export default function Home({ _posts = [] }) {
                   color={imageOk ? "" : "crimson"}
                   placeholder="image arweave txid..."
                   value={image}
-                  onChange={e => setImage(e.target.value)}
+                  onChange={(e) => setImage(e.target.value)}
                 />
               </Flex>
               <Flex fontSize="12px" mb={1} mt={4}>
@@ -151,7 +152,7 @@ export default function Home({ _posts = [] }) {
                   value={text}
                   w="100%"
                   rows="2"
-                  onChange={e => setText(e.target.value)}
+                  onChange={(e) => setText(e.target.value)}
                 />
               </Flex>
               <Flex justify="flex-end" align="center" mt={4}>
@@ -178,65 +179,65 @@ export default function Home({ _posts = [] }) {
                     ":hover": { opacity: 0.75 },
                   }}
                   onClick={async () => {
-                    if (posting) return
-                    setPosting(true)
+                    if (posting) return;
+                    setPosting(true);
                     try {
                       if (!addr) {
-                        setPosting(false)
-                        return alert("Connect Arweave wallet!")
+                        setPosting(false);
+                        return alert("Connect Arweave wallet!");
                       }
                       if (!imageOk) {
-                        setPosting(false)
-                        return alert("Enter a valid Arewave txid for image!")
+                        setPosting(false);
+                        return alert("Enter a valid Arewave txid for image!");
                       }
                       if (/^\s*$/.test(text)) {
-                        setPosting(false)
-                        return alert("Enter description!")
+                        setPosting(false);
+                        return alert("Enter description!");
                       }
                       if (text.length > 280) {
-                        setPosting(false)
-                        return alert("Text should be 280 letters or less!")
+                        setPosting(false);
+                        return alert("Text should be 280 letters or less!");
                       }
                       if (/^\s*$/.test(title)) {
-                        setPosting(false)
-                        return alert("Enter title!")
+                        setPosting(false);
+                        return alert("Enter title!");
                       }
                       if (title.length > 100) {
-                        setPosting(false)
-                        return alert("Title should be 100 letters or less!")
+                        setPosting(false);
+                        return alert("Title should be 100 letters or less!");
                       }
-                      const date = Date.now()
-                      const ao = await new AO().init(arweaveWallet)
+                      const date = Date.now();
+                      const ao = await new AO().init(arweaveWallet);
                       let _post = {
                         title,
                         description: text,
                         addr,
                         date,
                         image,
-                      }
+                      };
                       let tags = {
                         Title: _post.title,
                         Description: _post.description,
-                      }
-                      if (image != "") tags.Image = _post.image
+                      };
+                      if (image != "") tags.Image = _post.image;
 
                       const { err, res, mid } = await ao.msg({
                         pid,
                         act: "Post",
                         getData: "posted!",
                         tags,
-                      })
-                      _post.id = mid
-                      if (err) return alert("something went wrong!")
-                      posts.unshift(_post)
-                      setText("")
-                      setTitle("")
-                      setImage("")
-                      setPosts(posts)
-                      setPost(false)
-                      setAddr(null)
+                      });
+                      _post.id = mid;
+                      if (err) return alert("something went wrong!");
+                      posts.unshift(_post);
+                      setText("");
+                      setTitle("");
+                      setImage("");
+                      setPosts(posts);
+                      setPost(false);
+                      setAddr(null);
                     } catch (e) {}
-                    setPosting(false)
+                    setPosting(false);
                   }}
                 >
                   {posting ? <Spinner /> : "Post"}
@@ -261,7 +262,7 @@ export default function Home({ _posts = [] }) {
               </Flex>
             ) : (
               <>
-                {posts.map(v => {
+                {posts.map((v) => {
                   return (
                     <Link href={`/post/${v.id}`} key={v.id}>
                       <Box
@@ -309,7 +310,7 @@ export default function Home({ _posts = [] }) {
                         </Flex>
                       </Box>
                     </Link>
-                  )
+                  );
                 })}
                 {!more ? null : (
                   <Box px={4} pb={4}>
@@ -326,21 +327,21 @@ export default function Home({ _posts = [] }) {
                         ":hover": { opacity: 0.75 },
                       }}
                       onClick={async () => {
-                        if (loading) return
-                        setLoading(true)
+                        if (loading) return;
+                        setLoading(true);
                         try {
-                          const start = posts[posts.length - 1].id
-                          const ao = new AO()
+                          const start = posts[posts.length - 1].id;
+                          const ao = new AO();
                           const { out } = await ao.dry({
                             pid,
                             act: "List",
                             tags: { Limit: "10", Start: start },
                             get: { data: true, json: true },
-                          })
-                          setPosts(concat(posts, out))
-                          if (out.length < 10) setMore(false)
+                          });
+                          setPosts(concat(posts, out));
+                          if (out.length < 10) setMore(false);
                         } catch (e) {}
-                        setLoading(false)
+                        setLoading(false);
                       }}
                     >
                       {loading ? <Spinner /> : "Load More"}
@@ -354,5 +355,5 @@ export default function Home({ _posts = [] }) {
         </Flex>
       </Box>
     </>
-  )
+  );
 }
