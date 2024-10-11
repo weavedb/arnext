@@ -1,51 +1,51 @@
-import Head from "next/head";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { useEffect, useState } from "react";
-import { Image, Spinner, Flex, Box } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import { AO } from "aonote";
-import { Link, useParams } from "@/arnext";
+import Head from "next/head"
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+import { useEffect, useState } from "react"
+import { Image, Spinner, Flex, Box } from "@chakra-ui/react"
+import dayjs from "dayjs"
+import { AO } from "aonote"
+import { Link, useParams } from "@/arnext"
 const pid =
-  process.env.NEXT_PUBLIC_PID || "8ILQE2ZWywJXQBJLwJw5KJgj_c6cFL7UPeJb7Lnfcw0";
+  process.env.NEXT_PUBLIC_PID || "8ILQE2ZWywJXQBJLwJw5KJgj_c6cFL7UPeJb7Lnfcw0"
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: "blocking" };
+  return { paths: [], fallback: "blocking" }
 }
 
 export async function getStaticProps({ params }) {
-  const { id } = params;
-  const ao = new AO();
+  const { id } = params
+  const ao = new AO()
   const { out: _post } = await ao.dry({
     pid,
     act: "Get",
     tags: { ID: id },
     get: { data: true, json: true },
-  });
-  const props = { _post };
-  return { props, revalidate: 1000 };
+  })
+  const props = { _post }
+  return { props, revalidate: 1000 }
 }
 
 export default function Home({ _post = null }) {
-  const { id } = useParams();
-  const [addr, setAddr] = useState(null);
-  const [post, setPost] = useState(_post);
-  const [init, setInit] = useState(_post !== null);
+  const { id } = useParams()
+  const [addr, setAddr] = useState(null)
+  const [post, setPost] = useState(_post)
+  const [init, setInit] = useState(_post !== null)
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (!init) {
-        const ao = new AO();
+        const ao = new AO()
         const { out } = await ao.dry({
           pid,
           act: "Get",
           tags: { ID: id },
           get: { data: true, json: true },
-        });
-        setPost(out);
-        setInit(true);
+        })
+        setPost(out)
+        setInit(true)
       }
-    })();
-  }, [_post]);
+    })()
+  }, [_post])
 
   return (
     <>
@@ -113,5 +113,5 @@ export default function Home({ _post = null }) {
         </Flex>
       </Box>
     </>
-  );
+  )
 }
