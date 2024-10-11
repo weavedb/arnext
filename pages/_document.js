@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document"
 const script =
   `      (function() {
         window._assetPath = () => {
@@ -27,7 +27,7 @@ const script =
           document.head.appendChild(tag);
 	}
       })();
-`;
+`
 export default function Document() {
   return (
     <Html lang="en">
@@ -39,5 +39,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }
