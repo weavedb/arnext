@@ -98,6 +98,8 @@ Now, the static app to deploy on Arweave is running on [localhost:3000](http://l
 
 ### Deploy on Arweave
 
+#### Using arkb
+
 Make sure the dependencies are installed for arkb.
 
 ```bash
@@ -108,6 +110,16 @@ Then, deploy the app on Arweave. This is the identical app deployed on Vercel ab
 ```bash
 yarn deploy -w WALLET_PATH
 ```
+
+#### Using Turbo
+
+Deploying using Turbo requires a wallet funded with [Turbo Credits](https://docs.ardrive.io/docs/turbo/credits/)
+
+```bash
+yarn deploy:turbo -w WALLET_PATH
+```
+
+A JSON object will be printed to the console with upload information for each file, the arweave manifest generated, and the upload response from uploading the manifest. The manifest id for your deployment can be found at `manifestResponse.id`.
 
 ## ArNext Utils
 

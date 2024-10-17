@@ -9,6 +9,7 @@
     "lint": "next lint",
     "arweave": "npm run build:arweave && npx serve -s out",
     "deploy": "node arkb/bin/app.js deploy out",
+    "deploy:turbo": "turbo upload-folder --folder-path 'out'",
     "build:arweave": "NEXT_PUBLIC_DEPLOY_TARGET='arweave' next build && node arweave.mjs",
     "test": "mocha"
   },
@@ -29,10 +30,12 @@
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
+    "@ardrive/turbo-sdk": "^1.19.0",
     "cheerio": "^1.0.0",
     "eslint": "8.57.1",
     "eslint-config-next": "14.2.13",
     "express": "^4.21.0",
-    "http-proxy-middleware": "^3.0.2"
+    "http-proxy-middleware": "^3.0.2",
+    "starknet": "^6.11.0"
   }
 }
