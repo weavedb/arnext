@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import isArweave from "./isArweave"
 
-export default function ArNext({ children }) {
+export default function ArNext({ Component, pageProps }) {
   const [RouterComponent, setRouterComponent] = useState(null)
   const [ArweaveRoutes, setArweaveRoutes] = useState(null)
   useEffect(() => {
@@ -34,5 +34,5 @@ export default function ArNext({ children }) {
       </RouterComponent>
     )
   }
-  return isArweave ? null : children
+  return isArweave ? null : <Component {...pageProps} />
 }

@@ -5,22 +5,23 @@ import {
   readFileSync,
   readdirSync,
 } from "fs"
+
 import { resolve, extname } from "path"
 import * as cheerio from "cheerio"
-const dirs = readdirSync(resolve(import.meta.dirname, "out"), {
-  withFileTypes: true,
-  recursive: true,
-})
+
+const out = resolve(import.meta.dirname, "out")
+const dirs = readdirSync(out, { withFileTypes: true, recursive: true })
 
 const prefixWithPath = url => {
   const cleanedUrl = url.replace(/^\.\//, "").replace(/^\//, "")
   const txt = "${path}" + cleanedUrl
   return "`" + txt + "`"
 }
-const isRelativeUrl = url => {
-  return !/^https?:\/\//i.test(url)
-}
+
+const isRelativeUrl = url => !/^https?:\/\//i.test(url)
+
 let _dirs = []
+
 for (const v of dirs) {
   const ext = extname(v.name)
   const htmlPath = resolve(v.path, v.name)
@@ -75,12 +76,12 @@ for (const v of dirs) {
     writeFileSync(htmlPath, mod)
   }
 }
-const dirs2 = readdirSync(resolve(import.meta.dirname, "out"), {
-  withFileTypes: true,
-})
+
+const dirs2 = readdirSync(out, { withFileTypes: true })
 for (const v of dirs2) {
   const htmlPath = resolve(v.path, v.name)
   console.log(htmlPath)
-  if (v.isDirectory() && v.name !== "_next")
+  if (v.isDirectory() && v.name !== "_next") {
     rmdirSync(htmlPath, { recursive: true, force: true })
+  }
 }

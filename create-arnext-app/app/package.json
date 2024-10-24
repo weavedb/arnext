@@ -14,11 +14,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "arnext": "^0.1.1",
+    "arnext": "^0.1.2",
     "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18",
-    "starknet": "^6.11.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@ardrive/turbo-sdk": "^1.19.0",
@@ -28,6 +27,7 @@
     "eslint": "8.57.1",
     "eslint-config-next": "14.2.13",
     "express": "^4.21.0",
-    "http-proxy-middleware": "^3.0.2"
+    "http-proxy-middleware": "^3.0.2",
+    "starknet": "^6.11.0"
   }
 }
