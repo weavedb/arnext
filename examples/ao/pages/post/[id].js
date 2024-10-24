@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { Image, Spinner, Flex, Box } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import { AO } from "aonote"
-import { Link, useParams } from "@/arnext"
+import { Link, useParams } from "arnext"
 const pid =
   process.env.NEXT_PUBLIC_PID || "8ILQE2ZWywJXQBJLwJw5KJgj_c6cFL7UPeJb7Lnfcw0"
 

@@ -14,15 +14,13 @@ const pid =
 const rpc_node = process.env.NEXT_PUBLIC_RPC_NODE
 const rpc = process.env.NEXT_PUBLIC_RPC
 import { concat } from "ramda"
-import { isArweave, Link } from "@/arnext"
+import { ssr, Link } from "arnext"
 
-async function _getStaticProps({}) {
+export const getStaticProps = ssr(async ({}) => {
   const db = new Node({ contractTxId: pid, rpc: rpc_node })
   const _posts = await db.cget("posts", ["date", "desc"], 10)
   return { props: { _posts: _posts ?? [] }, revalidate: 3 }
-}
-
-export const getStaticProps = isArweave ? null : _getStaticProps
+})
 
 export default function Home({ _posts = [] }) {
   const [addr, setAddr] = useState(null)

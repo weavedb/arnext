@@ -9,9 +9,9 @@ import { AO } from "aonote"
 const pid =
   process.env.NEXT_PUBLIC_PID || "8ILQE2ZWywJXQBJLwJw5KJgj_c6cFL7UPeJb7Lnfcw0"
 import { concat } from "ramda"
-import { isArweave, Link } from "@/arnext"
+import { ssr, Link } from "arnext"
 
-async function _getStaticProps({}) {
+export const getStaticProps = ssr(async ({}) => {
   const ao = new AO()
   const { out: _posts } = await ao.dry({
     pid,
@@ -20,9 +20,7 @@ async function _getStaticProps({}) {
     get: { data: true, json: true },
   })
   return { props: { _posts: _posts ?? [] }, revalidate: 100 }
-}
-
-export const getStaticProps = isArweave ? null : _getStaticProps
+})
 
 export default function Home({ _posts = [] }) {
   const [addr, setAddr] = useState(null)
