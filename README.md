@@ -1,5 +1,7 @@
 # ArNext
 
+![](./assets/quick-start.png)
+
 ArNext is a NextJS-based framework that lets you deploy the same codebase both on [Vercel](https://vercel.com) and [Arweave](https://arweave.org).
 
 This allows permaapps to have all kinds of cloud-powered performance optimizations, which were not possible before.
