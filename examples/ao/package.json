@@ -1,5 +1,5 @@
 {
-  "name": "weave-vercel",
+  "name": "arnext-app-ao",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "arweave": "npm run build:arweave && npx serve -s out",
-    "deploy": "node arkb/bin/app.js deploy out",
-    "deploy:turbo": "turbo upload-folder --folder-path 'out'",
-    "build:arweave": "NEXT_PUBLIC_DEPLOY_TARGET='arweave' next build && node arweave.mjs",
+    "deploy": "node node_modules/arnext-arkb deploy out",
+    "deploy:turbo": "turbo upload-folder --folder-path out",
+    "build:arweave": "cross-env NEXT_PUBLIC_DEPLOY_TARGET='arweave' next build && node arweave.mjs",
     "test": "mocha"
   },
   "dependencies": {
@@ -19,6 +19,8 @@
     "@chakra-ui/react": "^2.10.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "arnext": "^0.1.0",
+    "arnext-arkb": "^0.0.1",
     "arweave-wallet-kit": "^1.0.6",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",

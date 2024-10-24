@@ -6,7 +6,7 @@ import { Image, Spinner, Flex, Box } from "@chakra-ui/react"
 import dayjs from "dayjs"
 import WeaveDB from "weavedb-client"
 import Node from "weavedb-node-client"
-import { Link, useParams } from "@/arnext"
+import { Link, useParams } from "arnext"
 const pid =
   process.env.NEXT_PUBLIC_PID || "8ILQE2ZWywJXQBJLwJw5KJgj_c6cFL7UPeJb7Lnfcw0"
 const rpc_node = process.env.NEXT_PUBLIC_RPC_NODE

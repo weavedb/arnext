@@ -1,7 +1,7 @@
 import { Spinner, Flex, Box } from "@chakra-ui/react"
 import { useState } from "react"
 import { AO } from "aonote"
-import { Link, useRouter } from "@/arnext"
+import { Link, useRouter } from "arnext"
 const pid = process.env.NEXT_PUBLIC_PID
 
 export default function Header({ addr, setAddr, setPost, post }) {
