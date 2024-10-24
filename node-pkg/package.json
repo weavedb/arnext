@@ -1,0 +1,38 @@
+{
+  "name": "arnext",
+  "version": "0.1.0",
+  "main": "dist/esm/index.js",
+  "scripts": {
+    "build": "rimraf component-library && node ./esbuild.js"
+  },
+  "files": [
+    "dist/*",
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "react-router-dom": "^6.27.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.16.17",
+    "esbuild-node-externals": "1.13.0",
+    "esbuild-plugin-glob": "2.2.3",
+    "esbuild-sass-plugin": "2.4.5",
+    "rimraf": "^5.0.5"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "next": "^15.0.1"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    },
+    "./config": {
+      "require": "./dist/cjs/config.js",
+      "import": "./dist/esm/config.js"
+    },
+    "./package.json": "./package.json"
+  }
+}
