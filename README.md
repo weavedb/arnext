@@ -136,7 +136,7 @@ export default function Post() {
 }
 ```
 
-### getStaticProps
+### getStaticProps / ssr
 
 
 Wrap `getStaticProps` with `ssr`.
@@ -144,7 +144,7 @@ Wrap `getStaticProps` with `ssr`.
 ```js
 import { ssr } from "arnext"
 
-export const ssr(getStaticProps({}) {
+export const getStaticProps = ssr(async ({}) => {
  ...
   return { props }
 })
