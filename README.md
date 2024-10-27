@@ -241,7 +241,7 @@ export default function Post() {
 
 9. Add script commands to `package.json`.
 
-```json
+```js
 {
   ...
   "scripts": {
@@ -249,7 +249,7 @@ export default function Post() {
     "deploy": "node node_modules/arnext-arkb deploy out",
     "deploy:turbo": "turbo upload-folder --folder-path out",
     "build:arweave": "cross-env NEXT_PUBLIC_DEPLOY_TARGET='arweave' next build && node arweave.mjs",
-	...
+    ...
   },
   ...
 }
@@ -260,7 +260,7 @@ export default function Post() {
 ```bash
 yarn arweave
 ```
-The static version of the NextJS app to be deployed on Arweave should be running at `localhost:3000`(https://localhost:3000).
+The static version of the NextJS app to be deployed on Arweave should be running at [localhost:3000](https://localhost:3000).
 
 11. Deploy on Arweave
 
