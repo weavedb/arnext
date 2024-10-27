@@ -14,7 +14,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "arnext": "^0.1.2",
+    "arnext": "^0.1.4",
     "next": "14.2.13",
     "react": "^18",
     "react-dom": "^18"

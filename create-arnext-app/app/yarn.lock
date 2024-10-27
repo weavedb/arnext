@@ -1491,10 +1491,10 @@ arnext-arkb@^0.0.1:
     stream-chunker "^1.2.8"
     temp-dir "^2.0.0"
 
-arnext@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/arnext/-/arnext-0.1.0.tgz#10748a2bf6232ec73c89882869fdef62c33ef992"
-  integrity sha512-I3b0FeFiOc8HZ2UA4ThZnA1O5aJFn3qLdOpk4L5SUu1FmHZYDnOwtlI9r2iUwqSczxFb9z2B3pZ06nwyvIaLcA==
+arnext@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/arnext/-/arnext-0.1.4.tgz#beb090e1d6c0bbc316ee85546377b1a61d930bea"
+  integrity sha512-7Pe1hf6kIqrmV+krSAlg2DmubO+7bVXcTBqCSgYPpey2V/31bmG21qltd4rOPtoODkRY5RPaP1ongMuHCH1SXA==
   dependencies:
     react-router-dom "^6.27.0"
 

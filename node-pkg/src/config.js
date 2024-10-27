@@ -1,5 +1,5 @@
-const { readdirSync } = require("fs")
-const { resolve, extname } = require("path")
+import { readdirSync } from "fs"
+import { resolve, extname } from "path"
 
 const arnext = config => {
   const isArweave = process.env.NEXT_PUBLIC_DEPLOY_TARGET === "arweave"
