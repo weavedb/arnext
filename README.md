@@ -127,7 +127,7 @@ Replace `Link`, `useParams`, and `useRouter` with the ones from `arnext`. It wil
 
 ```js
 import { Link, useParams, useRouter } from "arnext"
-...
+
 export default function Post() {
   const router = useRouter() // router.push(pathname)
   const { id } = useParams()
@@ -145,7 +145,131 @@ Wrap `getStaticProps` with `ssr`.
 import { ssr } from "arnext"
 
 export const getStaticProps = ssr(async ({}) => {
- ...
+  ...
   return { props }
 })
+```
+
+## Migration Guide
+
+Currently, ArNext only works with the page router without `src` directory and JS.
+
+If you have an existing NextJS app, follow the steps below. Using `create-arnext-app` and manually copying the source code might be less hassle.
+
+1. Remove unsupported features
+
+ArNext doesn't support certain NextJS features at the moment. If your app is using any of the following features, find alternative ways to implement them.
+
+- Typescript
+- App Router
+- `src` directory
+- `next/font/local`
+- `next/image`
+- `next/router` only supports `push`
+
+They will be supported in future releases.
+
+2. Install necessary dependencies.
+
+```bash
+yarn add arnext
+yarn add arnext-arkb cheerio cross-env starknet @ardrive/turbo-sdk --dev
+```
+
+3. Wrap config in `next.config.mjs`.
+
+```js
+/** @type {import('next').NextConfig} */
+import arnext from "arnext/config"
+const nextConfig = { reactStrictMode: true }
+export default arnext(nextConfig)
+```
+
+4. Replace `Head` in `_document.js`.
+
+```js
+import { Html, Main, NextScript } from "next/document"
+import { Head } from "arnext"
+
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+```
+
+5. Replace `Component` with `ArNext` in `_app.js`.
+
+```js
+import { ArNext } from "arnext"
+export default function App(props) {
+  return <ArNext {...props} />
+}
+```
+
+6. Wrap `getStaticProps` with `ssr`
+
+```js
+import { ssr } from "arnext"
+
+export const getStaticProps = ssr(async ({}) => {
+  ...
+  return { props }
+})
+```
+
+7. Replace `Link`, `useParams`, `useRouter` with the ones from `arnext`. 
+
+```js
+import { Link, useParams, useRouter } from "arnext"
+
+export default function Post() {
+  const router = useRouter() // router.push(pathname)
+  const { id } = useParams()
+  ...
+  return <Link href={`/post/${id}`}>/post/{id}</Link>
+}
+```
+
+8. Copy [`arweave.mjs`](./create-arnext-app/app/arweave.mjs) file to the app root directory.
+
+9. Add script commands to `package.json`.
+
+```json
+{
+  ...
+  "scripts": {
+    "arweave": "npm run build:arweave && npx serve -s out",
+    "deploy": "node node_modules/arnext-arkb deploy out",
+    "deploy:turbo": "turbo upload-folder --folder-path out",
+    "build:arweave": "cross-env NEXT_PUBLIC_DEPLOY_TARGET='arweave' next build && node arweave.mjs",
+	...
+  },
+  ...
+}
+```
+
+10. Build for Arweave
+
+```bash
+yarn arweave
+```
+The static version of the NextJS app to be deployed on Arweave should be running at `localhost:3000`(https://localhost:3000).
+
+11. Deploy on Arweave
+
+If everything is working, you can deploy the app either using `arkb` or `turbo`.
+
+```bash
+yarn deploy -w KEYFILE
+```
+
+```bash
+yarn deploy:turbo -w KEYFILE
 ```

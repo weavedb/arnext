@@ -5,7 +5,29 @@ const { dependencies, peerDependencies } = require("./package.json")
 
 esbuild
   .build({
-    entryPoints: ["src/index.js", "src/config.js"],
+    entryPoints: ["src/config.js"],
+    outdir: "dist/esm",
+    bundle: true,
+    sourcemap: true,
+    format: "esm",
+    target: ["es6"],
+    loader: { ".js": "jsx" },
+    platform: "node",
+    plugins: [globPlugin(), nodeExternalsPlugin()],
+    external: [].concat.apply(
+      [],
+      [Object.keys(dependencies), Object.keys(peerDependencies)],
+    ),
+    outExtension: { ".js": ".mjs" },
+  })
+  .then(async result => {
+    console.log("Build complete")
+  })
+  .catch(() => process.exit(1))
+
+esbuild
+  .build({
+    entryPoints: ["src/index.js"],
     outdir: "dist/esm",
     bundle: true,
     sourcemap: true,
